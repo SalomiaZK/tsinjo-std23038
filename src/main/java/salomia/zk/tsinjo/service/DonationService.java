@@ -21,12 +21,10 @@ public class DonationService {
     private WebClient webClient;
 
     public Donation makeDonation(Donation donation) {
-        // Sauvegarde initiale en DAO
         var donationDao = DonationMapper.toDao(donation);
         donationDao = donationRepository.save(donationDao);
 
-        // Appel GET à Vola pour vérifier le paiement
-        String paymentId = donation.getPayment().getId();  // Assume que le Payment a déjà un ID
+        String paymentId = donation.getPayment().getId();
 
         PaymentResponse response = webClient.get()
                 .uri(uriBuilder -> uriBuilder
@@ -38,13 +36,10 @@ public class DonationService {
                 .block();
 
         if (response != null && response.getPayment() != null) {
-            // Récupérer le status
             Status status = response.getPayment().getStatus();
 
-            // Mettre à jour l'état du paiement dans la donation DAO
             donationDao.getPayment().setStatus(status);
 
-            // Re-sauvegarder la donation avec paiement à jour
             donationDao = donationRepository.save(donationDao);
         }
 
