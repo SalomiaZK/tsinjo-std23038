@@ -3,6 +3,7 @@ package salomia.zk.tsinjo.repository.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import salomia.zk.tsinjo.modele.Status;
 
 import java.time.LocalDate;
 
@@ -17,4 +18,5 @@ public class PaymentDao {
     private LocalDate date;
     private long amount;
     private String paymentType;
+    private Status status;
 }
