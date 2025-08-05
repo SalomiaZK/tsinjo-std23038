@@ -12,4 +12,5 @@ public class Payment {
     private final LocalDate date;
     private final long amount;
     private final String paymentType;
+    private final Status status;
 }

@@ -12,4 +12,6 @@ public interface DonationRepository extends JpaRepository<DonationDao, String> {
 
   @Override
     DonationDao save(DonationDao donationDao);
+
+  List<DonationDao> findByPaymentStatus(String status);
 }
